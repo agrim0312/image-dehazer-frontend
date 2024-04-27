@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 const ImageUpload = () => {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [url, setUrl] = useState('');
   const handleImageUpload = (event:any) => {
     setSelectedImage(event.target.files[0]);
   };
@@ -20,6 +21,7 @@ const ImageUpload = () => {
       if (response.ok) {
         const blob = await response.blob();
         const url = URL.createObjectURL(blob);
+        setUrl(url);
         console.log(`URL------------><><><><><><><----------------${url}`)
       } else {
         console.error('Image upload failed');
@@ -75,6 +77,7 @@ const ImageUpload = () => {
             alt="Selected Image"
             className="object-center object-contain rounded-lg shadow-md" />
         </div>
+        <img src={url} alt="Dehazed Image" className="object-center object-contain rounded-lg shadow-md" />
         <button className='flex-1 p-2 bg-blue-800 rounded-xl m-5 max-w-50' onClick={handleImageSend}>
           Upload
         </button>
